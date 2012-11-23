@@ -1,74 +1,23 @@
 #!/usr/bin/env python
 
 # How many letters would be needed to write all the numbers in words from 1 to 1000
-digits = (
-    '',
-    'one',
-    'two',
-    'three',
-    'four',
-    'five',
-    'six',
-    'seven',
-    'eight',
-    'nine'
-)
-teens = (
-    'ten',
-    'eleven',
-    'twelve',
-    'thirteen',
-    'fourteen',
-    'fifteen',
-    'sixteen',
-    'seventeen',
-    'eighteen',
-    'nineteen',
-)
 
-tens = (
-    '',
-    '',
-    'twenty',
-    'thirty',
-    'forty',
-    'fifty',
-    'sixty',
-    'seventy',
-    'eighty',
-    'ninety'
-)
+# We use tuples because they're immutable and have less overhead than a list
+
+# length of numbers 0-9
+digits_len = (0, 3, 3, 5, 4, 4, 3, 5, 5, 4)
+# length of teens 10-19
+teens_len = (3, 6, 6, 8, 8, 7, 7, 9, 8, 8)
+# length of prefix 0-90
+tens_len = (0, 0, 6, 6, 5, 5, 5, 7, 6, 6)
+and_len = 3
+hundred_len = 7
 
 
 def num_letters(num):
-    ret = ''
-    if num == 1000:
-        ret += 'one thousand'
-    elif num < 1000:
-        if num >= 100:
-            ret += digits[num / 100] + 'hundred'
-        if 0 < num % 100 < 10:
-            ret += 'and' + digits[num % 100]
-        elif 20 > num % 100 >= 10:
-            ret += 'and' + teens[num % 10]
-        elif num % 100 >= 20:
-            ret += 'and' + tens[num % 100 / 10] + digits[num % 10]
-    elif num < 100:
-        if num < 10:
-            ret += digits[num]
-        elif num < 20:
-            ret += teens[num % 10]
-        else:
-            ret += tens[num / 10] + digits[num % 10]
-    print ret
-    return len(ret.replace(' ', ''))
+    total = 0
+
 
 
 if __name__ == '__main__':
-    tot = 0
-    for i in xrange(1, 1001):
-        print i,
-        num = num_letters(i)
-        print num
-        tot += num
-    print tot
+    print sum((num_letters(i) for i in xrange(1, 1000))) + 11
